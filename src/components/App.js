@@ -5,13 +5,13 @@ import Navbar from './Navbar/Navbar';
 import Mainpage from './Mainpage/Mainpage';
 
 function App() {
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <Navbar />
-      <Mainpage />
-    </React.Fragment>
-  );
+    return (
+        <React.Fragment>
+            <CssBaseline />
+            <Navbar />
+            <Mainpage />
+        </React.Fragment>
+    );
 }
 
 export default App;
