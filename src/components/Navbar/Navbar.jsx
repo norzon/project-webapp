@@ -9,6 +9,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
     root: {
@@ -76,11 +78,11 @@ function SearchAppBar(props) {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+                    {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
                         <MenuIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                        Material-UI
+                        <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
                     </Typography>
                     <div className={classes.grow} />
                     <div className={classes.search}>
@@ -105,4 +107,4 @@ SearchAppBar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SearchAppBar);
+export default withStyles(styles)(withRouter(SearchAppBar));
