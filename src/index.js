@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
+import raw_data from './data';
+
+const data = {};
+raw_data.forEach(d => {
+    data[d.id] = d;
+});
+window.data = data;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

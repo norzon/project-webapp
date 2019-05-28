@@ -1,8 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import { Input, Button } from '@material-ui/core';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import IngredientItem from './Ingredient-Item';
 
 const style = {
     main: {
@@ -26,6 +24,7 @@ const style = {
 
 class Mainpage extends React.Component {
     render() {
+
         return (
             <Grid
                 id="main-page"
@@ -35,15 +34,15 @@ class Mainpage extends React.Component {
                 alignItems="center"
                 style={style.main}
             >
-                <Grid item sm={8} style={style.grid}>
-                    <Paper style={style.paper}>
-                        <Input placeholder="Select ingredient" style={style.input} />
-                        <span style={style.span}>or</span>
-                        <Button
-                            color="primary"
-                            variant="contained"
-                        >Browse All</Button>
-                    </Paper>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >
+                    {Object.keys(window.data).map(k => {
+                        return IngredientItem(window.data[k]);
+                    })}
                 </Grid>
             </Grid>
         );
