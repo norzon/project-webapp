@@ -7,9 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import { ArrowBack } from '@material-ui/icons';
 import SearchIcon from '@material-ui/icons/Search';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
 
 const styles = theme => ({
@@ -78,12 +77,13 @@ function SearchAppBar(props) {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-                        <MenuIcon />
-                    </IconButton> */}
-                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                        <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
-                    </Typography>
+                    {props.location.pathname && props.location.pathname !== '/' ? (
+                        <IconButton className={classes.menuButton} color="inherit" aria-label="Go Back" onClick={e => props.history.goBack()}>
+                            <ArrowBack />
+                        </IconButton>
+                    ) : (
+                        <Typography className={classes.title} variant="h6" color="inherit" noWrap>Home</Typography>
+                    )}
                     <div className={classes.grow} />
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>

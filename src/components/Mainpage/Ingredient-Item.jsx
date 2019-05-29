@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function IngredientItem (ingredient) {
     return (
-        <Card style={{ margin: '0.5rem' }}>
+        <Card key={ingredient.id} style={{ margin: '0.5rem' }}>
             <CardContent>
                 <Typography color="textSecondary" gutterBottom>
                     {ingredient.alias}
