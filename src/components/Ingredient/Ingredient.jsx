@@ -1,28 +1,36 @@
 import React from 'react';
 import { Grid, Paper, Typography, Chip, Tooltip, Badge } from '@material-ui/core';
-import { green, red, grey } from '@material-ui/core/colors';
+import { green, red, grey, orange } from '@material-ui/core/colors';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 let counter = 0;
 
 function BasicItem (opts) {
+    let backgroundColor, color = 'white';
+    switch (opts.valid) {
+        case 'approved': backgroundColor = green[500]; break;
+        case 'rejected': backgroundColor = red[500]; break;
+        case 'pending': backgroundColor = orange[500]; break;
+        case 'inconclusive': backgroundColor = grey[100]; color = 'black'; break;
+        default: backgroundColor = grey[500]; break;
+    }
     return (
         <Grid key={opts.key} container direction='row' style={{ marginBottom: '0.15rem' }}>
             <Typography variant="subtitle1">{opts.text}</Typography>
             <Tooltip title={opts.tooltip} placement="top-start">
-                <Chip label={opts.label} style={{ marginLeft: '0.5rem', backgroundColor: opts.valid ? green[500] : red[500], color: 'white', height: 28 }} />
+                <Chip label={opts.label} style={{ marginLeft: '0.5rem', backgroundColor, color, height: 28 }} />
             </Tooltip>
         </Grid>
     )
 }
 
 function BasicItemWrapper (decision, text) {
-    const authorized = decision.status.toLowerCase() === 'authorized';
     return BasicItem({
         key: counter++,
         text: text,
         tooltip: decision.description,
         label: decision.status,
-        valid: authorized
+        valid: typeof decision.status === 'string' ? decision.status.toLowerCase() : ''
     });
 }
 
@@ -41,40 +49,50 @@ function displayItems (title, items) {
 }
 
 class Ingredient extends React.Component {
-
     render () {
         counter = 0;
         const ingredient = window.data[this.props.match.params.id];
         const claimItems = [], healthItems = [];
 
-        ingredient.decisions.forEach(decision => {
-            decision.claims.forEach(claim => claimItems.push(BasicItemWrapper(decision, claim)));
-            decision.health.forEach(health => healthItems.push(BasicItemWrapper(decision, health)));
-        });
-
-        const hr = <hr style={{ border: 'none', borderTop: `1px solid ${grey[200]}`, marginTop: '2rem', marginBottom: '1rem' }} />;
-
-        return (
-            <Grid container justify='center' style={{ padding: '2.5rem 1rem' }}>
-                <Grid item xl={7} lg={8} md={10} sm={11} xs={12}>
-                    <Paper style={{ width: '100%', padding: '1.5rem' }}>
-                        <Grid container direction="row" alignItems="flex-end">
-                            <Typography variant="h3" color="textPrimary">{ingredient.common_name}</Typography>
-                            <Typography color="textSecondary">
-                                <span style={{ paddingLeft: '0.5rem', paddingRight: '0.25rem' }}>&#8226;</span>
-                                {ingredient.alias}
-                            </Typography>
-                        </Grid>
-                        {hr}
-                        {displayItems('Claims', claimItems)}
-                        {hr}
-                        {displayItems('Health Benefits', healthItems)}
-                    </Paper>
+        if (ingredient) {
+            ingredient.decisions.forEach(decision => {
+                decision.claims.forEach(claim => claimItems.push(BasicItemWrapper(decision, claim)));
+                decision.health.forEach(health => healthItems.push(BasicItemWrapper(decision, health)));
+            });
+    
+            const hr = <hr style={{ border: 'none', borderTop: `1px solid ${grey[200]}`, marginTop: '2rem', marginBottom: '1rem' }} />;
+    
+            return (
+                <Grid container justify='center' style={{ padding: '2.5rem 1rem' }}>
+                    <Grid item xl={7} lg={8} md={10} sm={11} xs={12}>
+                        <Paper style={{ width: '100%', padding: '1.5rem' }}>
+                            <Grid container direction="row" alignItems="flex-end">
+                                <Typography variant="h3" color="textPrimary">{ingredient.common_name}</Typography>
+                                <Typography color="textSecondary">
+                                    <span style={{ paddingLeft: '0.5rem', paddingRight: '0.25rem' }}>&#8226;</span>
+                                    {ingredient.alias}
+                                </Typography>
+                            </Grid>
+                            {hr}
+                            {displayItems('Claims', claimItems)}
+                            {hr}
+                            {displayItems('Health Benefits', healthItems)}
+                        </Paper>
+                    </Grid>
                 </Grid>
-            </Grid>
-        );
+            );
+        } else {
+            return (
+                <Grid container justify='center' style={{ padding: '5rem 1rem' }}>
+                    <CircularProgress />
+                </Grid>
+            )
+        }
     }
 
+    componentDidMount () {
+        window.onUpdateData(this.forceUpdate.bind(this));
+    }
 }
 
 export default Ingredient;

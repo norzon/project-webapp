@@ -24,7 +24,6 @@ const style = {
 
 class Mainpage extends React.Component {
     render() {
-
         return (
             <Grid
                 id="main-page"
@@ -46,6 +45,10 @@ class Mainpage extends React.Component {
                 </Grid>
             </Grid>
         );
+    }
+
+    componentDidMount () {
+        window.onUpdateData(this.forceUpdate.bind(this));
     }
 }
 
