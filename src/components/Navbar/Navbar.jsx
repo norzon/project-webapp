@@ -85,7 +85,7 @@ function SearchAppBar(props) {
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>Home</Typography>
                     )}
                     <div className={classes.grow} />
-                    <div className={classes.search}>
+                    {/* <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
@@ -96,7 +96,7 @@ function SearchAppBar(props) {
                                 input: classes.inputInput,
                             }}
                         />
-                    </div>
+                    </div> */}
                 </Toolbar>
             </AppBar>
         </div>
