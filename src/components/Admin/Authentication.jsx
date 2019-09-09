@@ -10,7 +10,7 @@ export default class Authentication extends React.Component {
         super(props);
 
         this.state = {
-            email: '',
+            username: '',
             password: '',
             hash: window.userHash
         };
@@ -36,12 +36,12 @@ export default class Authentication extends React.Component {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
-                                value={this.state.email}
-                                onChange={e => this.setState({ email: e.currentTarget.value })}
+                                id="username"
+                                label="Username"
+                                name="username"
+                                autoComplete="username"
+                                value={this.state.username}
+                                onChange={e => this.setState({ username: e.currentTarget.value })}
                                 autoFocus
                             />
                             <TextField
@@ -101,7 +101,7 @@ export default class Authentication extends React.Component {
             url: `${settings.api_url}/admin/authenticate`,
             method: 'POST',
             data: {
-                email: this.state.email,
+                username: this.state.username,
                 password: this.state.password
             }
         })
