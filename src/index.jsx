@@ -21,7 +21,7 @@ fetch(`${settings.api_url}/ingredients`)
 window.data = {};
 window.updateData = function (data) {
     window.data = {};
-    data.forEach(d => window.data[d.id] = d);
+    data.forEach(d => window.data[d.ID] = d);
 
     window.onUpdateDataCallbacks.forEach(fn => {
         fn();
@@ -31,6 +31,7 @@ window.onUpdateData = function (fn) {
     window.onUpdateDataCallbacks.push(fn);
 }
 window.onUpdateDataCallbacks = [];
+window.userHash = sessionStorage.getItem('userHash');
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

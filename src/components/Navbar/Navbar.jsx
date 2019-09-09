@@ -10,6 +10,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { ArrowBack } from '@material-ui/icons';
 import SearchIcon from '@material-ui/icons/Search';
 import { withRouter } from "react-router";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 const styles = theme => ({
     root: {
@@ -85,6 +87,13 @@ function SearchAppBar(props) {
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>Home</Typography>
                     )}
                     <div className={classes.grow} />
+                    {props.location.pathname && props.location.pathname !== '/admin' ? (
+                        <Link to="/admin">
+                            <Typography className={classes.title} variant="h6" color="inherit" noWrap>Admin</Typography>
+                        </Link>
+                    ) : ''}
+                    {/* <div>
+                    </div> */}
                     {/* <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />

@@ -4,17 +4,17 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function IngredientItem (ingredient) {
     return (
-        <Card key={ingredient.id} style={{ margin: '0.5rem' }}>
+        <Card key={ingredient.ID} style={{ margin: '0.5rem' }}>
             <CardContent>
                 <Typography color="textSecondary" gutterBottom>
-                    {ingredient.alias}
+                    {ingredient.ALIAS}
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    {ingredient.common_name}
+                    {ingredient.COMMON_NAME}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Link to={'/' + ingredient.id} >
+                <Link to={'/ingredient/' + ingredient.ID} >
                     <Button>View more details</Button>
                 </Link>
             </CardActions>

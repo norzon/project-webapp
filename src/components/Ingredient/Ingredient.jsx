@@ -28,9 +28,9 @@ function BasicItemWrapper (decision, text) {
     return BasicItem({
         key: counter++,
         text: text,
-        tooltip: decision.description,
-        label: decision.status,
-        valid: typeof decision.status === 'string' ? decision.status.toLowerCase() : ''
+        tooltip: decision.DESCRIPTION,
+        label: decision.STATUS,
+        valid: typeof decision.STATUS === 'string' ? decision.STATUS.toLowerCase() : ''
     });
 }
 
@@ -55,22 +55,22 @@ class Ingredient extends React.Component {
         const claimItems = [], healthItems = [];
 
         if (ingredient) {
-            ingredient.decisions.forEach(decision => {
-                decision.claims.forEach(claim => claimItems.push(BasicItemWrapper(decision, claim)));
-                decision.health.forEach(health => healthItems.push(BasicItemWrapper(decision, health)));
+            ingredient.DECISIONS.forEach(decision => {
+                decision.CLAIMS.forEach(claim => claimItems.push(BasicItemWrapper(decision, claim)));
+                decision.HEALTH.forEach(health => healthItems.push(BasicItemWrapper(decision, health)));
             });
     
             const hr = <hr style={{ border: 'none', borderTop: `1px solid ${grey[200]}`, marginTop: '2rem', marginBottom: '1rem' }} />;
     
             return (
-                <Grid container justify='center' style={{ padding: '2.5rem 1rem' }}>
+                <Grid key="ing-main" container justify='center' style={{ padding: '2.5rem 1rem' }}>
                     <Grid item xl={7} lg={8} md={10} sm={11} xs={12}>
                         <Paper style={{ width: '100%', padding: '1.5rem' }}>
                             <Grid container direction="row" alignItems="flex-end">
-                                <Typography variant="h3" color="textPrimary">{ingredient.common_name}</Typography>
+                                <Typography variant="h3" color="textPrimary">{ingredient.COMMON_NAME}</Typography>
                                 <Typography color="textSecondary">
                                     <span style={{ paddingLeft: '0.5rem', paddingRight: '0.25rem' }}>&#8226;</span>
-                                    {ingredient.alias}
+                                    {ingredient.ALIAS}
                                 </Typography>
                             </Grid>
                             {hr}
@@ -83,7 +83,7 @@ class Ingredient extends React.Component {
             );
         } else {
             return (
-                <Grid container justify='center' style={{ padding: '5rem 1rem' }}>
+                <Grid key="ing-loader" container justify='center' style={{ padding: '5rem 1rem' }}>
                     <CircularProgress />
                 </Grid>
             )

@@ -5,7 +5,7 @@ import Navbar from './Navbar/Navbar';
 import Mainpage from './Mainpage/Mainpage';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Ingredient from './Ingredient/Ingredient';
-import Authentication from './Admin/Authentication';
+import AdminMain from './Admin/AdminMain';
 
 function App() {
     return (
@@ -14,8 +14,8 @@ function App() {
                 <CssBaseline />
                 <Navbar />
                 <Route path="/" exact component={Mainpage} />
-                <Route path="/:id" component={Ingredient} />
-                <Route path="/admin" component={Authentication} />
+                <Route path="/admin" exact component={AdminMain} />
+                <Route path="/ingredient/:id" component={Ingredient} />
             </React.Fragment>
         </Router>
     );
