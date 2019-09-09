@@ -11,6 +11,8 @@ import { ArrowBack } from '@material-ui/icons';
 import SearchIcon from '@material-ui/icons/Search';
 import { withRouter } from "react-router";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 const styles = theme => ({
@@ -87,11 +89,24 @@ function SearchAppBar(props) {
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>Home</Typography>
                     )}
                     <div className={classes.grow} />
-                    {props.location.pathname && props.location.pathname !== '/admin' ? (
-                        <Link to="/admin">
-                            <Typography className={classes.title} variant="h6" color="inherit" noWrap>Admin</Typography>
-                        </Link>
-                    ) : ''}
+                    {props.location.pathname && props.location.pathname !== '/admin' ?
+                        window.userHash ? (
+                            <IconButton
+                                color="inherit"
+                                style={{color: 'white'}}
+                                aria-label="Logout"
+                                onClick={() => window.updateUser(null)}
+                            >
+                                <ExitToAppIcon />
+                            </IconButton>
+                        ) : (
+                            <Link to="/admin">
+                                <IconButton color="inherit" style={{color: 'white'}} aria-label="Login">
+                                    <AccountCircleIcon />
+                                </IconButton>
+                            </Link>
+                        )
+                    : ''}
                     {/* <div>
                     </div> */}
                     {/* <div className={classes.search}>

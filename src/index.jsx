@@ -27,10 +27,26 @@ window.updateData = function (data) {
         fn();
     });
 }
+window.updateUser = function (hash) {
+    window.userHash = hash;
+    if (hash) {
+        sessionStorage.setItem('userHash', hash);
+    } else {
+        sessionStorage.removeItem('userHash');
+    }
+
+    window.onUpdateUserCallbacks.forEach(fn => {
+        fn();
+    });
+}
 window.onUpdateData = function (fn) {
     window.onUpdateDataCallbacks.push(fn);
 }
+window.onUpdateUser = function (fn) {
+    window.onUpdateUserCallbacks.push(fn);
+}
 window.onUpdateDataCallbacks = [];
+window.onUpdateUserCallbacks = [];
 window.userHash = sessionStorage.getItem('userHash');
 
 ReactDOM.render(<App />, document.getElementById('root'));
